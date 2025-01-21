@@ -6,8 +6,6 @@ const roleSlice=createSlice({
     initialState:{
         isLoading:false,
         roles:null,
-        response:null,
-        error:null,
         permissions:null
 
     },
@@ -34,7 +32,7 @@ const roleSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(getAllRoles.fulfilled,(state,action)=>{
-            state.roles=action.payload.roles
+            state.roles=action.payload
         });
         builder.addCase(getAllRoles.rejected,(state,action)=>{
            state.error=action.payload
@@ -43,8 +41,8 @@ const roleSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(deleteRole.fulfilled,(state,action)=>{
-            state.roles=state.roles.filter(role=>role.id!=action.payload)
-            state.response="delete"
+            state.isLoading=false
+            state.roles=state.roles.filter(role=>role.id!=action.payload.id)
         });
         builder.addCase(deleteRole.rejected,(state,action)=>{
            state.error=action.payload
@@ -53,12 +51,9 @@ const roleSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(updateRole.fulfilled,(state,action)=>{
-            state.roles=state.roles.map(role=>role.id===action.payload.id?action.payload.updatedRole:role)
-            state.response="update"
+            state.isLoading=false
+            state.roles=state.roles.map(role=>role.id===action.payload.role.id?action.payload.role:role)
         });
-        builder.addCase(updateRole.rejected,(state,action)=>{
-           state.error=action.payload
-        })
         builder.addCase(getRolePermissions.pending,(state)=>{
             state.isLoading=true
         });
@@ -72,20 +67,15 @@ const roleSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(addPermissionToRole.fulfilled,(state,action)=>{
-            state.permissions=[...state.permissions,{permission:action.payload.id_permission}]
+            console.log(action.payload)
+            state.permissions=[...state.permissions,action.payload.permission.permission]
         });
-        builder.addCase(addPermissionToRole.rejected,(state,action)=>{
-           state.error=action.payload
-        })
         builder.addCase(removeRolePermissions.pending,(state)=>{
             state.isLoading=true
         });
         builder.addCase(removeRolePermissions.fulfilled,(state,action)=>{
-            state.permissions=state.permissions.filter(element=>element.permission!==action.payload)
+             state.permissions=state.permissions.filter(element=>element.id!==action.payload.permission.id_permission)
         });
-        builder.addCase(removeRolePermissions.rejected,(state,action)=>{
-           state.error=action.payload
-        })
     }
 
     

@@ -26,10 +26,10 @@ function AddEditPermission({open,handleClose,selectedPermission}) {
       const {t}=useTranslation()
       const dispatch=useDispatch()
       const [name, setname] = useState("")
-      const handleChange=(e)=>{
-        setname(e.target.value)
-        } 
      const Permission=useSelector(state=>selectedPermission?state.permission.permissions.find(permission=>permission.id===selectedPermission):null);
+     const handleChange=(e)=>{
+      setname(e.target.value)
+      } 
      useEffect(() => {
        if(selectedPermission){
         setname(Permission.name)
@@ -40,10 +40,10 @@ function AddEditPermission({open,handleClose,selectedPermission}) {
       
             if(selectedPermission){
                
-                dispatch(updatePermission({id:selectedPermission,name}))
+                dispatch(updatePermission({id:selectedPermission,name,toast}))
             }
             else {
-                dispatch(addPermission({name}))
+                dispatch(addPermission({name,toast}))
             }
        handleClose()
      }
@@ -54,20 +54,20 @@ function AddEditPermission({open,handleClose,selectedPermission}) {
        dispatch(resetError())
       }, [dispatch])
 
-      if(!isAuth) return   <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Typography id="modal-modal-title"  variant="h4">
-      {t("not_authorized")}
-        </Typography>
-        <Divider/>
+    //   if(!isAuth) return   <Modal
+    //   open={open}
+    //   onClose={handleClose}
+    //   aria-labelledby="modal-modal-title"
+    //   aria-describedby="modal-modal-description"
+    // >
+    //   <Box sx={style}>
+    //     <Typography id="modal-modal-title"  variant="h4">
+    //   {t("not_authorized")}
+    //     </Typography>
+    //     <Divider/>
         
-      </Box>
-    </Modal>
+    //   </Box>
+    // </Modal>
   return (
     <div><Modal
       open={open}

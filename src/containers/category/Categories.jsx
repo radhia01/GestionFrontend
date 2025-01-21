@@ -12,16 +12,15 @@ import { useOutletContext } from 'react-router-dom'
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
  import AddEditCategory from './AddEditCategory'
-import { resetResponse ,resetError} from '../../redux/reducers/category'
 import { getAllUsers } from '../../redux/actions/user'
 import DeleteCategory from './DeleteCategory'
 
 function Categories() {
   const [open,setOpen]=React.useState(false)
   const [openDelete, setopenDelete] = useState(false)
-  const { searchItem,setproductId } = useOutletContext();
+  const { searchItem } = useOutletContext();
   const [selectedCategoryId, setselectedCategoryId] = useState(null)
-  const isAuth=usePermissions(["view_categories"])
+  // const isAuth=usePermissions(["view_categories"])
 const {users}=useSelector(state=>state.user)
   const handleClose=()=>{
     setOpen(false)
@@ -101,8 +100,8 @@ const {users}=useSelector(state=>state.user)
     
       }
     ]
-    if(!isAuth)
-      return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box>
+    // if(!isAuth)
+    //   return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box>
   return (
     <div>
        <Box sx={{display:"flex",justifyContent:"space-between"}}>

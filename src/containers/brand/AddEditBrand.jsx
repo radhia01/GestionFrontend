@@ -1,14 +1,15 @@
-import React from 'react'
+
 import {Typography,Modal,Box,Divider,TextField,Button} from "@mui/material"
 import { addBrand, updateBrand } from '../../redux/actions/brand';
 import {useTranslation} from "react-i18next"
 import { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import usePermissions from '../../hooks/usePermissions';
+import { toast } from 'react-toastify';
+// import usePermissions from '../../hooks/usePermissions';
 
-function AddEditBrand({open,handleClose,selectedBrandId,setselectedBrandId}) {
-     const isAuth=usePermissions(["add_brand","edit_brand"])
+function AddEditBrand({open,handleClose,selectedBrandId,setSelectedBrandId}) {
+    //  const isAuth=usePermissions(["add_brand","edit_brand"])
     const style = {
         position: 'absolute',
         top: '50%',
@@ -37,28 +38,28 @@ function AddEditBrand({open,handleClose,selectedBrandId,setselectedBrandId}) {
       
             if(selectedBrandId){
                
-                dispatch(updateBrand({id:selectedBrandId,name}))
+                dispatch(updateBrand({id:selectedBrandId,name,toast}))
             }
             else {
-                dispatch(addBrand({name}))
-                setselectedBrandId(null)
+                dispatch(addBrand({name,toast}))
+                setSelectedBrandId(null)
             }
          setname("")
      }
-     if(!isAuth) return   <Modal
-     open={open}
-     onClose={handleClose}
-     aria-labelledby="modal-modal-title"
-     aria-describedby="modal-modal-description"
-   >
-     <Box sx={style}>
-       <Typography id="modal-modal-title"  component="h2">
-     {t("not_authorized")}
-       </Typography>
-       <Divider/>
+  //    if(!isAuth) return   <Modal
+  //    open={open}
+  //    onClose={handleClose}
+  //    aria-labelledby="modal-modal-title"
+  //    aria-describedby="modal-modal-description"
+  //  >
+  //    <Box sx={style}>
+  //      <Typography id="modal-modal-title"  component="h2">
+  //    {t("not_authorized")}
+  //      </Typography>
+  //      <Divider/>
        
-     </Box>
-   </Modal>
+  //    </Box>
+  //  </Modal>
   return (
     <div> 
       

@@ -21,11 +21,8 @@ const permissionSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(addPermission.fulfilled,(state,action)=>{
-            state.permissions=[...state.permissions,action.payload]
-            state.response="add"
-        });
-        builder.addCase(addPermission.rejected,(state,action)=>{
-           state.error=action.payload
+            state.isLoading=false
+            state.permissions=[...state.permissions,action.payload.permission]
         });
         builder.addCase(getAllPermissions.pending,(state)=>{
             state.isLoading=true
@@ -40,7 +37,7 @@ const permissionSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(deletePermission.fulfilled,(state,action)=>{
-            state.permissions=state.permissions.filter(permission=>permission.id!=action.payload)
+            state.permissions=state.permissions.filter(permission=>permission.id!=action.payload.id)
             state.response="delete"
         });
         builder.addCase(deletePermission.rejected,(state,action)=>{
@@ -50,7 +47,7 @@ const permissionSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(updatePermission.fulfilled,(state,action)=>{
-            state.permissions=state.permissions.map(permission=>permission.id===action.payload.id?action.payload.updatedPermission:permission)
+            state.permissions=state.permissions.map(permission=>permission.id===action.payload.permission.id?action.payload.permission:permission)
             state.response="update"
         });
         builder.addCase(updatePermission.rejected,(state,action)=>{

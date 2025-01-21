@@ -3,58 +3,52 @@ import {Box,Button,Typography,IconButton} from "@mui/material"
 import { useTranslation } from 'react-i18next'
 import  {useSelector,useDispatch} from 'react-redux'
 import { useEffect,useState } from 'react'
-import { useOutletContext } from 'react-router-dom'
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
+import { useOutletContext } from 'react-router-dom'
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
-import AddEditBrand from './AddEditBrand'
-import { getAllBrands } from '../../redux/actions/brand'
-import DeleteBrand from './DeleteBrand'
-
-function Brands() {
-  const {t}=useTranslation()
-  const dispatch=useDispatch()
+import { getAllPermissions} from '../../redux/actions/permission'
+import AddEditPermission from './AddEditPermission'
+import DeletePermission from './DeletePermission'
+function Permissions() {
   const [open,setOpen]=React.useState(false)
-  const { searchItem } = useOutletContext();
-  const {brands}=useSelector(state=>state.brand)
+  const {permissions}=useSelector(state=>state.permission)
   const [openDelete, setOpenDelete] = useState(false)
-  console.log(openDelete)
-  const [selectedBrandId, setSelectedBrandId] = useState(null)
-  // const isAuthorized=usePermissions(["view_brands"])
+  const { searchItem } = useOutletContext();
+  const [selectedPermission, setSelectedPermission] = useState(null)
+  //  const isAuth=usePermissions(["view_permissions"])
   const handleClose=()=>{
     setOpen(false)
   }
   const handleCloseDeleteModel=()=>{
     setOpenDelete(false)
-    
   }
   const handleOpenEditModel=(id)=>{
     setOpen(true)
-    setSelectedBrandId(id)
+    setSelectedPermission(id)
   }
   const handleOpenAddModel=()=>{
     setOpen(true);
-    setSelectedBrandId(null)
+    setSelectedPermission(null)
   }
    const handleOpenDeleteModal=(id)=>{
-    setSelectedBrandId(id)
+    console.log(id)
+    setSelectedPermission(id)
     setOpenDelete(true)
-    
    }
-  
+  const {t}=useTranslation()
+  const dispatch=useDispatch()
+ 
 
   useEffect(() => {
-   dispatch(getAllBrands())
-  }, [dispatch])
-  
+   dispatch(getAllPermissions())
+  }, [])
+  const newPermissions=permissions && permissions.filter(permission=>permission.name.toUpperCase().includes(searchItem.toUpperCase()));
+
     const columns=[
+      { field: 'id', headerName: "id", width: 300 },
       {field:"name",headerName:t("name"),editable:true,width:300},
-      {field:"created_on",headerName:t("created_date"),editable:true,width:300,
-        renderCell:(params)=>{
-          return <span>{getDate(params.row.created_on)}</span>
-        }
-      },
       {
         field: 'action',
         headerName: "Action",
@@ -82,46 +76,35 @@ function Brands() {
             }}}>
             < BorderColorRoundedIcon/>
           </IconButton>
-          
-          
-  
             </Box>
             
           )
         }
-    
       }
     ]
-    const getDate=(date)=>{
-      const categoryDate=date.slice(0,10)
-      return categoryDate? categoryDate :null
-    }
-      const newBrands=brands && brands.filter(brand=>brand?.name?.toUpperCase().includes(searchItem.toUpperCase()))
-      // if(!isAuthorized)
-      //   return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box>
+    // if(!isAuth) return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box> 
   return (
     <div>
-    <Box sx={{display:"flex",justifyContent:"space-between"}}>
-       <Typography align="start" variant="h5" sx={{my:4,fontSize:22,fontWeight:"bold",color:"#F2C12E"}}>{t("Brands_list")} </Typography>
-       <Button onClick={handleOpenAddModel}  sx={{backgroundColor:"#139950",height:50,px:5,fontSize:11,color:"white"}} ><AddIcon/>{t("add_new_brand")}</Button>
+      <Box sx={{display:"flex",justifyContent:"space-between"}}>
+       <Typography align="start" variant="h5" sx={{my:4,fontSize:22,fontWeight:"bold",color:"#F2C12E"}}>Permissions </Typography>
+       <Button onClick={handleOpenAddModel}  sx={{backgroundColor:"#139950",height:50,px:5,fontSize:11,color:"white"}} ><AddIcon/>{t("add_new_permission")}</Button>
        </Box>
-       <Box   sx={{width:"90%"}}>
+       <Box  >
        <DataGrid 
         rowHeight={70}
        sx={{width:"100%",backgroundColor:"white"}}
        columns={columns}
-       rows={newBrands}
+       rows={newPermissions}
        >
 
 
        </DataGrid>
-       {open && <AddEditBrand handleClose={handleClose} setSelectedBrandId={setSelectedBrandId}  selectedBrandId={selectedBrandId} open={open}/> }
-       {openDelete && <DeleteBrand handleClose={handleCloseDeleteModel} openDelete={openDelete} selectedBrandId={selectedBrandId}/> }
+       {open && <AddEditPermission handleClose={handleClose} selectedPermission={selectedPermission} open={open}/> }
+       {openDelete && <DeletePermission handleClose={handleCloseDeleteModel} openDelete={openDelete} selectedPermission={selectedPermission}/> }
        </Box>
-      
-      
+       
     </div>
   )
 }
 
-export default Brands
+export default Permissions

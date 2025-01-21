@@ -55,15 +55,6 @@ console.log(error)
   // useEffect(() => {
   //   user && dispatch(getRolePermissions(user.id_role))
   // }, [user])
-  
-  
-  
-     useEffect(() => {
-      if(error){
-        console.log(error)
-        toast.error(error)
-      }
-     }, [error])
      
   return (
    <div  className={styles.root} >

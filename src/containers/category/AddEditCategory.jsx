@@ -6,6 +6,7 @@ import { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import usePermissions from '../../hooks/usePermissions';
+import { toast } from 'react-toastify';
 
 function AddEditCategory({open,handleClose,selectedCategoryId}) {
 
@@ -38,29 +39,29 @@ function AddEditCategory({open,handleClose,selectedCategoryId}) {
       
             if(selectedCategoryId){
                
-                dispatch(updateCategory({id:selectedCategoryId,name}))
+                dispatch(updateCategory({id:selectedCategoryId,name,toast}))
                
             }
             else {
-                dispatch(addCategory({name}))
+                dispatch(addCategory({name,toast}))
             }
             setname("")
        
      }
-     if(!isAuth) return  <Modal
-     open={open}
-     onClose={handleClose}
-     aria-labelledby="modal-modal-title"
-     aria-describedby="modal-modal-description"
-   >
-     <Box sx={style}>
-       <Typography id="modal-modal-title"  component="h4">
-     {t("not_authorized")}
-       </Typography>
-       <Divider/>
+  //    if(!isAuth) return  <Modal
+  //    open={open}
+  //    onClose={handleClose}
+  //    aria-labelledby="modal-modal-title"
+  //    aria-describedby="modal-modal-description"
+  //  >
+  //    <Box sx={style}>
+  //      <Typography id="modal-modal-title"  component="h4">
+  //    {t("not_authorized")}
+  //      </Typography>
+  //      <Divider/>
        
-     </Box>
-   </Modal>
+  //    </Box>
+  //  </Modal>
   return (
     <div><Modal
       open={open}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box,Button,Typography,Modal,Divider,TextField,IconButton} from "@mui/material"
+import {Box,Button,Typography,Modal,Divider,IconButton} from "@mui/material"
 import { useTranslation } from 'react-i18next'
 import  {useSelector,useDispatch} from 'react-redux'
 import { useEffect,useState } from 'react'
@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
-import { resetResponse ,resetError} from '../../redux/reducers/brand'
+
 import {getAllUsers,deleteUser} from "../../redux/actions/user"
 import { getAllRoles } from '../../redux/actions/role'
 import AddEditUser from './AddEditUser'
@@ -131,11 +131,7 @@ const getUserImage = (id) => {
    dispatch(getAllUsers())
    dispatch(getAllRoles())
   }, [])
-  useEffect(() => {
-    dispatch(resetResponse())
-    dispatch(resetError())
-  }, [dispatch])
- 
+
   
     const columns=[
      

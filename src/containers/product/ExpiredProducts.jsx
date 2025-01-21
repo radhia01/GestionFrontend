@@ -16,12 +16,11 @@ import { useMemo } from 'react';
 import { resetError, resetResponse } from '../../redux/reducers/product';
 
 export default function ExpiredProducts() {
-  const { searchItem,setproductId } = useOutletContext();
-  const { error,response } = useSelector(state => state.product)
- const isAuth=usePermissions(["view_expired_products"])
+  const { searchItem } = useOutletContext();
+  const { products } = useSelector(state => state.product)
+//  const isAuth=usePermissions(["view_expired_products"])
   const {images}=useSelector(state=>state.image)
   const {t}=useTranslation()    
-  const {products}=useSelector(state=>state.product)
   const {categories}=useSelector(state=>state.category)
 
   const dispatch=useDispatch()
@@ -29,7 +28,7 @@ export default function ExpiredProducts() {
    dispatch(getAllProducts())
    dispatch(getAllCategories())
    dispatch(getAllImages())
-  }, [])
+  }, [dispatch])
   
   const getProductImage=(id)=>{
    const image=images && images.find(image=>image.id_product===id)
@@ -65,20 +64,6 @@ export default function ExpiredProducts() {
    dispatch(resetError())
    dispatch(resetResponse())
   }, [dispatch])
-  
-  useEffect(() => {
-    if(error){
-     toast.error(error)
-    }
-   }, [error])
-   useEffect(() => {
-     if(response && response==="delete"){
-        
-         toast.success(t("success_delete_product"))
-        
-    
-     }
-    }, [response])
     const getProductDate=(date)=>{
       
       return date ? date.slice(0,10):null
@@ -112,8 +97,8 @@ export default function ExpiredProducts() {
       }
     },
   ];
-  if(!isAuth)
-    return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box>
+  // if(!isAuth)
+  //   return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box>
   
   return (
     <div>

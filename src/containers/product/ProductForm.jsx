@@ -7,9 +7,8 @@ import { DatePicker } from '@mui/x-date-pickers'
 import { getAllCategories } from '../../redux/actions/category'
 import { getAllBrands } from '../../redux/actions/brand'
 import { useTranslation } from 'react-i18next';
-import React from 'react'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-function ProductForm({product,handleChange,handleDateChange,handleManufacturedDate,value,manufacturedDate}) {
+function ProductForm({product,handleChange,handleDateChange,value}) {
     const dispatch=useDispatch()
     useEffect(() => {
        dispatch(getAllBrands())
@@ -88,6 +87,7 @@ function ProductForm({product,handleChange,handleDateChange,handleManufacturedDa
                 {categories && categories.map(category => (
                   <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
                 ))}
+             
               </Select>
             </FormControl>
             <FormControl sx={{width:"100%", margin: 2 }}>
@@ -140,9 +140,10 @@ function ProductForm({product,handleChange,handleDateChange,handleManufacturedDa
               
               onChange={handleChange}
             />
+     
       </div>
 </>
-        
+          
          
           
      

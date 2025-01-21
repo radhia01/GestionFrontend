@@ -1,13 +1,14 @@
-import  {useSelector,useDispatch} from 'react-redux'
-import usePermissions from "../../hooks/usePermissions"
-import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import {Box,Button,Typography,Modal,Divider} from "@mui/material"
-import { deleteCategory } from '../../redux/actions/category'
-export const DeleteModal=({handleClose,selectedCategoryId,openDelete})=>{
+import { Box, Button, Divider, Modal, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { removeRolePermissions } from "../../redux/actions/role";
+import { toast } from "react-toastify";
+
+
+export const DeletePermissionFromRole=({open,handleClose,id,idPermission})=>{
     const dispatch=useDispatch()
     const {t}=useTranslation()
-      // const isAuth=usePermissions(["delete_category"])
+    // const isAuth=usePermissions(["delete_permission_from_role"])
     const style = {
       position: 'absolute',
       top: '50%',
@@ -23,34 +24,34 @@ export const DeleteModal=({handleClose,selectedCategoryId,openDelete})=>{
     };
       const handleDeleteCategory=()=>{
        
-          dispatch(deleteCategory({id:selectedCategoryId,toast}))
+          dispatch(removeRolePermissions({id_role:id,id_permission:idPermission,toast}))
           handleClose();
   
         }
          
-        
        
-      //   if(!isAuth)   return (
-      //     <Modal
-      //   open={openDelete}
-      //   onClose={handleClose}
-      //   aria-labelledby="modal-modal-title"
-      //   aria-describedby="modal-modal-description"
-      // >
-      //   <Box sx={style}>
-      //     <Typography id="modal-modal-title"  variant="h4">
-      //   {t("not_authorized")}
-      //     </Typography>
-      //     <Divider/>
+    //     if(!isAuth) return (
+    //       <Modal
+    //     open={open}
+    //     onClose={handleClose}
+    //     aria-labelledby="modal-modal-title"
+    //     aria-describedby="modal-modal-description"
+    //   >
+    //     <Box sx={style}>
+    //       <Typography id="modal-modal-title"  variant="h4">
+    //     {t("not_authorized")}
+    //       </Typography>
+    //       <Divider/>
           
-      //   </Box>
-      // </Modal>
-      //   )
-      //   if(isLoading) return <Typography>Loading wait </Typography>
+    //     </Box>
+    //   </Modal>
+    //     )  
+        
         
     return (
-      <div>  <Modal
-        open={openDelete}
+      <div>
+    <Modal
+        open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -68,11 +69,10 @@ export const DeleteModal=({handleClose,selectedCategoryId,openDelete})=>{
             <Button variant="contained" sx={{margin:2,backgroundColor:"red"}} onClick={handleClose}>{t("no")}</Button>
           </Box>
         </Box>
-      </Modal>
+      </Modal> 
       
     </div>
     )
   }
-  
 
-export default DeleteModal
+export default DeletePermissionFromRole

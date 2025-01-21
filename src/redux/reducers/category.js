@@ -37,14 +37,10 @@ const categorySlice=createSlice({
                        
             state.isLoading=false
             state.categories=[...state.categories,action.payload]
-            state.response="add"
+
         }
         );
              
-        builder.addCase(addCategory.rejected,(state,action)=>{
-            state.isLoading=false
-            state.error=action.payload
-                   });
         builder.addCase(deleteCategory.pending,(state)=>{
             state.isLoading=true
                            });
@@ -52,11 +48,6 @@ const categorySlice=createSlice({
                                
             state.isLoading=false
             state.categories=state.categories.filter(category=>category.id!==action.payload.id)
-            state.response="delete"
-                           });
-        builder.addCase(deleteCategory.rejected,(state,action)=>{
-            state.isLoading=false
-            state.error=action.payload
                            });
         builder.addCase(updateCategory.pending,(state)=>{
             state.isLoading=true
@@ -64,7 +55,7 @@ const categorySlice=createSlice({
         builder.addCase(updateCategory.fulfilled,(state,action)=>{
                                                
             state.isLoading=false
-            state.categories=state.categories.map(category=>category.id==action.payload.id?action.payload.category:category)
+            state.categories=state.categories.map(category=>category.id==action.payload.category.id?action.payload.category:category)
             state.response="update"
                                            });
         builder.addCase(updateCategory.rejected,(state,action)=>{

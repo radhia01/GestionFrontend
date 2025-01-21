@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { addRole, updateRole } from '../../redux/actions/role';
 import usePermissions from '../../hooks/usePermissions';
+import { toast } from 'react-toastify';
 function AddEditRole({open,handleClose,selectedRole}) {
     const isAuth=usePermissions(["add_role","edit_role"])
     const style = {
@@ -22,10 +23,10 @@ function AddEditRole({open,handleClose,selectedRole}) {
       const {t}=useTranslation()
       const dispatch=useDispatch()
       const [name, setname] = useState("")
-      const handleChange=(e)=>{
-        setname(e.target.value)
-        } 
      const role=useSelector(state=>selectedRole?state.role.roles.find(role=>role.id===selectedRole):null);
+     const handleChange=(e)=>{
+      setname(e.target.value)
+      } 
      useEffect(() => {
        if(selectedRole){
         setname(role.name)
@@ -36,27 +37,27 @@ function AddEditRole({open,handleClose,selectedRole}) {
       
             if(selectedRole){
                
-                dispatch(updateRole({id:selectedRole,name}))
+                dispatch(updateRole({id:selectedRole,name,toast}))
             }
             else {
-                dispatch(addRole({name}))
+                dispatch(addRole({name,toast}))
             }
        handleClose()
      }
-     if(!isAuth) return   <Modal
-     open={open}
-     onClose={handleClose}
-     aria-labelledby="modal-modal-title"
-     aria-describedby="modal-modal-description"
-   >
-     <Box sx={style}>
-       <Typography id="modal-modal-title"  variant="h4">
-     {t("not_authorized")}
-       </Typography>
-       <Divider/>
+  //    if(!isAuth) return   <Modal
+  //    open={open}
+  //    onClose={handleClose}
+  //    aria-labelledby="modal-modal-title"
+  //    aria-describedby="modal-modal-description"
+  //  >
+  //    <Box sx={style}>
+  //      <Typography id="modal-modal-title"  variant="h4">
+  //    {t("not_authorized")}
+  //      </Typography>
+  //      <Divider/>
        
-     </Box>
-   </Modal>
+  //    </Box>
+  //  </Modal>
   return (
     <div>  <Modal
     open={open}

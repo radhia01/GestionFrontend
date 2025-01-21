@@ -6,11 +6,8 @@ import { useEffect, useState } from "react"
 import {toast} from "react-toastify"
 import { useTranslation } from 'react-i18next';
 import {useOutletContext} from "react-router-dom"
-import {useMemo} from "react"
 import dayjs from 'dayjs';
 import InfoIcon from '@mui/icons-material/Info';
-import usePermissions from '../../hooks/usePermissions';
-import { useNavigate } from 'react-router-dom';
 import ProductForm from './ProductForm';
 import { addProduct } from '../../redux/actions/products';
 import ImageUpload from './ImageUpload';
@@ -64,6 +61,7 @@ function Product() {
           created_on: newDate.toISOString(), // Mise à jour de la date de création
         }));
       };
+    // @ts-ignore
     const handleSubmitProduct = async (e) => {
         e.preventDefault();
         const form=new FormData()
@@ -78,9 +76,8 @@ function Product() {
         files.forEach(file=>{
           form.append("image",file)
         })
-       
-     
-    dispatch(addProduct({form,toast}))
+       // @ts-ignore
+       dispatch(addProduct({form,toast}))
         
         }
   return (

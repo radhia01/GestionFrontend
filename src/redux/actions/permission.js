@@ -12,40 +12,44 @@ export const getAllPermissions=createAsyncThunk("permissions/getpermissions",asy
    }
 } );
 // add new permission
-export const addPermission=createAsyncThunk("permissions/addPermission",async(data,thunkAPI)=>{
+export const addPermission=createAsyncThunk("permissions/addPermission",async({name,toast})=>{
    try{
-      const response=await axiosInstance.post("/api/permissions",data)
+      const response=await axiosInstance.post("/api/permissions",{name})
+      if(response.data.message){
+         toast.success(response.data.message)
+      }
      return response.data
    }
    catch(error){
-      error.response.data.code
-      return  thunkAPI.rejectWithValue(error.response.data.code)
-
-
+     toast.error(error.response.data.message)
    }
 } );
 // delete permission
-export const deletePermission=createAsyncThunk("permissions/deletePermission",async(id,thunkAPI)=>{
+export const deletePermission=createAsyncThunk("permissions/deletePermission",async({id,toast})=>{
    try{
       const response=await axiosInstance.delete(`/api/permissions/${id}`)
+      if(response.data.message){
+         toast.success(response.data.message)
+      }
      return response.data
    }
    catch(error){
-      console.log(error.response.data.code)
-      return  thunkAPI.rejectWithValue(error.response.data.code)
+     toast.error(error.response.data.message)
 
 
    }
 } );
 // update permission
-export const updatePermission=createAsyncThunk("permissions/updatePermission",async(data,thunkAPI)=>{
-   const {name,id}=data
+export const updatePermission=createAsyncThunk("permissions/updatePermission",async({id,name,toast})=>{
    try{
-      const response=await axiosInstance.put(`/api/permissions/${id}`,{name})
+      const response=await axiosInstance.put(`/api/permissions/${id}`,{id,name})
+      if(response.data.message){
+         toast.success(response.data.message)
+      }
      return response.data
    }
    catch(error){
-      return  thunkAPI.rejectWithValue(error.response.data.code)
+      toast.error((error.response.data.message))
 
 
    }

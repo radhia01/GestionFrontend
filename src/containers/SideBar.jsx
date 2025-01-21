@@ -89,6 +89,21 @@ function SideBar({open,handleDrawerClose}) {
       icon:<HomeIcon/>,
       path:"/home"
     },
+    {
+      text:"Roles",
+      icon:<GroupIcon/>,
+      path:"/roles"
+    },
+    {
+      text:t("manageUsers"),
+      icon:<GroupIcon/>,
+      path:"/users"
+    },
+    {
+      text:"Permissions",
+      icon:<GroupIcon/>,
+      path:"/permissions"
+    },
   {
     text:t("manageProducts"),
     icon:<ChecklistIcon/>,
@@ -104,21 +119,6 @@ function SideBar({open,handleDrawerClose}) {
     text:t("manageBrands"),
     icon:<CategoryIcon/>,
     path:"/brands"
-  },
-  
-  {
-    text:t("manageUsers"),
-    icon:<GroupIcon/>,
-    path:"/users"
-  },
-  {
-    text:"Roles",
-    icon:<GroupIcon/>,
-    path:"/roles"
-  }, {
-    text:"Permissions",
-    icon:<GroupIcon/>,
-    path:"/permissions"
   },
   
   {
@@ -167,17 +167,16 @@ useEffect(() => {
   }
 
   return (
-    <Drawer variant="permanent" open={open} sx={{fontSize:10}}>
+    <Drawer variant="permanent" open={open} sx={{fontSize:10}} >
     <DrawerHeader>
       <IconButton onClick={handleDrawerClose}>
         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </IconButton>
     
     </DrawerHeader>
-    <Box display="flex" sx={{justifyContent:"center"}}><Typography variant="h5" sx={{color:"#F2C12E" ,fontWeight:"bold"}}>GestionPro</Typography></Box>
+    <Box display="flex" sx={{justifyContent:"center" }}><Typography variant="h5" sx={{color:"#F2C12E" ,fontWeight:"bold"}}>GestionPro</Typography></Box>
     <Divider/>
-    {/* <Avatar sx={{mx:"auto",width:50,height:50 }} src={userIcon}></Avatar> */}
-   {/* <Typography variant="h6" sx={{textAlign:"center"}}>{t("admin")}</Typography> */}
+    
     <Divider />
    
     <List sx={{paddingX:3,paddingY:3}}>

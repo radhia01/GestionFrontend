@@ -5,16 +5,10 @@ const brandSlice=createSlice({
     initialState:{
         isLoading:false,
         brands:null,
-        response:null,
-        error:null
+      
     },
     reducers:{
-        resetError:(state)=>{
-            state.error=null
-        },
-        resetResponse:(state)=>{
-            state.response=null
-        }
+       
     },
     extraReducers:(builder)=>{
         builder.addCase(addBrand.pending,(state)=>{
@@ -22,11 +16,9 @@ const brandSlice=createSlice({
         });
         builder.addCase(addBrand.fulfilled,(state,action)=>{
             state.brands=[...state.brands,action.payload]
-            state.response="add"
+          
         });
-        builder.addCase(addBrand.rejected,(state,action)=>{
-           state.error=action.payload
-        });
+      
         builder.addCase(getAllBrands.pending,(state)=>{
             state.isLoading=true
         });
@@ -40,8 +32,8 @@ const brandSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(deleteBrand.fulfilled,(state,action)=>{
-            state.brands=state.brands.filter(brand=>brand.id!=action.payload)
-            state.response="delete"
+            state.brands=state.brands.filter(brand=>brand.id!=action.payload.id)
+           
         });
         builder.addCase(deleteBrand.rejected,(state,action)=>{
            state.error=action.payload
@@ -50,15 +42,12 @@ const brandSlice=createSlice({
             state.isLoading=true
         });
         builder.addCase(updateBrand.fulfilled,(state,action)=>{
-            state.brands=state.brands.map(brand=>brand.id===action.payload.id?action.payload.updatedBrand:brand)
-            state.response="update"
+            state.brands=state.brands.map(brand=>brand.id===action.payload.brand.id?action.payload.brand:brand)
+            
         });
-        builder.addCase(updateBrand.rejected,(state,action)=>{
-           state.error=action.payload
-        })
+      
     }
 
     
 })
 export default brandSlice.reducer;
-export const {resetError,resetResponse}=brandSlice.actions

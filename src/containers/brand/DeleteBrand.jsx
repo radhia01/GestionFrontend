@@ -2,10 +2,11 @@ import { deleteBrand } from '../../redux/actions/brand'
 import { useTranslation } from 'react-i18next'
 import {Box,Button,Typography,Modal,Divider} from "@mui/material"
 import  {useDispatch} from 'react-redux'
-import usePermissions from '../../hooks/usePermissions'
+// import usePermissions from '../../hooks/usePermissions'
+import { toast } from 'react-toastify'
 export const DeleteModal=({handleClose,selectedBrandId,openDelete})=>{
     const dispatch=useDispatch()
-  const isAuth=usePermissions(["delete_brand"])
+  // const isAuth=usePermissions(["delete_brand"])
     const {t}=useTranslation()
     const style = {
       position: 'absolute',
@@ -21,27 +22,27 @@ export const DeleteModal=({handleClose,selectedBrandId,openDelete})=>{
     
     };
       const handleDeleteBrand=()=>{
-          dispatch(deleteBrand(selectedBrandId))
+          dispatch(deleteBrand({id:selectedBrandId,toast}))
           handleClose();
   
         }
          
   
-    if(!isAuth) return 
-    <Modal
-    open={openDelete}
-    onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
-  >
-    <Box sx={style}>
-      <Typography id="modal-modal-title"  component="h2">
-    {t("not_authorized")}
-      </Typography>
-      <Divider/>
+  //   if(!isAuth) return 
+  //   <Modal
+  //   open={openDelete}
+  //   onClose={handleClose}
+  //   aria-labelledby="modal-modal-title"
+  //   aria-describedby="modal-modal-description"
+  // >
+  //   <Box sx={style}>
+  //     <Typography id="modal-modal-title"  component="h2">
+  //   {t("not_authorized")}
+  //     </Typography>
+  //     <Divider/>
       
-    </Box>
-  </Modal>
+  //   </Box>
+  // </Modal>
   
     return (
       <div>

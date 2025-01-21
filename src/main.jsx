@@ -19,6 +19,7 @@ import Product from './containers/product/Product.jsx';
 import { persistor, store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import ProductDetails from './containers/product/ProductDetails.jsx';
+import Permissions from './containers/permission/Permissions.jsx';
 // import SubCategories from './containers/SubCategories.jsx';
 // import Brands from './containers/brand/Brands.jsx';
 // import ExpiredProducts from './containers/product/ExpiredProducts.jsx';
@@ -30,6 +31,10 @@ import ProductDetails from './containers/product/ProductDetails.jsx';
 // import Sales from './containers/sales/Sales.jsx';
 // import Test from "./containers/Test.jsx"
 import axiosSetup from './axios/axiosSetup.jsx';
+import Roles from './containers/role/Roles.jsx';
+import RolePermissions from './containers/permission/RolePermissions.jsx';
+import Brands from './containers/brand/Brands.jsx';
+import React from 'react';
 axiosSetup()
 const router=createBrowserRouter(createRoutesFromElements(
   <>
@@ -40,18 +45,22 @@ const router=createBrowserRouter(createRoutesFromElements(
         <Route path="products" element={<Products />} />
         <Route path="product/:id" element={<ProductDetails />} />
         <Route path="add/product" element={<Product />} />
+        <Route path="permissions" element={<Permissions />} />
+        <Route path="roles" element={<Roles />} />
+        <Route path="brands" element={<Brands />} />
+        <Route path="/role/permissions/:id" element={<RolePermissions />} />
+        <Route path="categories" element={<Categories/> }/>
         {/* <Route path="categories" element={<Categories />} />
         <Route path="users" element={<Users />} />
       
       
         <Route path="subcategories" element={<SubCategories />} />
-        <Route path="brands" element={<Brands />} />
+       
         <Route path="expired/products" element={<ExpiredProducts />} />
         <Route path="expired/products" element={<ExpiredProducts />} />
         <Route path="users" element={<Users />} />
-        <Route path="roles" element={<Roles />} />
-        <Route path="permissions" element={<Permissions />} />
-        <Route path="/role/permissions/:id" element={<RolePermissions />} />
+      
+    
        
         <Route path="purchases" element={<Purchases />} />
         <Route path="low/stock" element={<LowStock />} />
