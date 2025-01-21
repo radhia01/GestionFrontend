@@ -79,7 +79,7 @@ function RolePermissions() {
 
           <Button  onClick={()=>setopen(true)} sx={{backgroundColor:"#139950",height:50,px:2,fontSize:11,color:"white"}}><AddIcon/>{t("add_new_permission")}</Button>
           </Box>
-   <Stack   direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' ,padding:2 }}> {permissions.map((permission)=>(
+   <Stack   direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap' ,padding:2 }}> {permissions && permissions.map((permission)=>(
        <Item  key={permission.id} sx={{ width: 'calc(20% - 8px)'  ,marginBottom:"12px"}}>{permission.name} <Button
       ><ClearRoundedIcon sx={{color:"red"}}   onClick={()=>handleOpenDeleteModel(permission.id)}/></Button></Item>
 ))}</Stack>
