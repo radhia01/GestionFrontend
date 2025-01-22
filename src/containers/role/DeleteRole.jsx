@@ -3,11 +3,12 @@ import { deleteRole } from "../../redux/actions/role";
 import { toast } from "react-toastify";
 import { Box, Button, Divider, Modal, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
+import usePermissions from "../../hooks/usePermissions";
+import Unauthorized from "../Unauthorized";
 export const DeleteRole=({handleClose,selectedRole,openDelete})=>{
     const dispatch=useDispatch()
     const {t}=useTranslation()
-    // const isAuth=usePermissions(["delete_role"])
+    const deleteRoleAuth=usePermissions("delete_role")
     const style = {
       position: 'absolute',
       top: '50%',
@@ -28,22 +29,7 @@ export const DeleteRole=({handleClose,selectedRole,openDelete})=>{
   
         }
    
-      //   if(!isAuth) return (
-      //     <Modal
-      //   open={openDelete}
-      //   onClose={handleClose}
-      //   aria-labelledby="modal-modal-title"
-      //   aria-describedby="modal-modal-description"
-      // >
-      //   <Box sx={style}>
-      //     <Typography id="modal-modal-title"  variant="h4">
-      //   {t("not_authorized")}
-      //     </Typography>
-      //     <Divider/>
-          
-      //   </Box>
-      // </Modal>
-      //   ) 
+   if(!deleteRoleAuth) return <Unauthorized/>
     return (
       <div>
       <Modal

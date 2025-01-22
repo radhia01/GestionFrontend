@@ -6,7 +6,7 @@ import { addUser,updateUser } from '../../redux/actions/user'
 import { useDispatch,useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { resetError } from '../../redux/reducers/user'
-import { getAllRoles } from '../../redux/actions/user'
+import { getAllRoles } from '../../redux/actions/role'
 import usePermissions from '../../hooks/usePermissions'
 function AddEditUser({onClose,open,userId}) {
     const {t}=useTranslation()

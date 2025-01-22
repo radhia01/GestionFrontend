@@ -50,7 +50,7 @@ console.log(error)
   }
   const handleSubmit=(e)=>{
     e.preventDefault()
-    dispatch(signIn({userData,navigate}))
+    dispatch(signIn({userData,navigate,toast}))
   }
   // useEffect(() => {
   //   user && dispatch(getRolePermissions(user.id_role))
@@ -61,13 +61,12 @@ console.log(error)
      <Box  sx={{width:"50%"}} className={styles.form}>
      <Box display="flex" sx={{justifyContent:"center",margin:5}}><Typography variant="h2" sx={{color:"#F2C12E" ,fontWeight:"bold"}}>GestionPro</Typography></Box>
       <Box  textAlign="center"> <Typography  variant="h4">
-       Sign In
+       Sign In <span className="text-xl">As Administrator</span>
       </Typography>
-      <Typography >email:admin@gmail.com <br></br>
+      <Typography  sx={{}}>email:admin@gmail.com <br></br>
         password:0000
       </Typography>
       </Box>
-     
       <Box component="form"
       textAlign="center"
       sx={{padding:5}}
@@ -103,7 +102,7 @@ console.log(error)
         variant="contained"
         sx={{ mt: 3, mb: 2 ,width:"70%" ,backgroundColor:"#F2C12E"}}
         >
-        Sign In
+        Sign In 
        </Button>
       </Box>
      </Box>

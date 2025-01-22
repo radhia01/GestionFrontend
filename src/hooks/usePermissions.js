@@ -1,25 +1,17 @@
 import {useSelector,useDispatch} from 'react-redux'
 import { useEffect } from 'react'
-import  {getAllPermissions} from "../redux/actions/permission"
-
+import { getUserPermissions } from '../redux/actions/user'
 const usePermissions=(requiredPermissions)=>{
     const dispatch=useDispatch()
     useEffect(() => {
-      dispatch(getAllPermissions())
-    }, [])
+      dispatch(getUserPermissions())
+    }, [dispatch])
     
-    const rolePermissions=useSelector(state=>state.role.permissions)
-   
-  const {permissions}=useSelector(state=>state.permission)
-  const finalPermissions=[]
+    const {userPermissions}=useSelector(state=>state.user)
+    console.log(userPermissions)
   try{  
     
-    rolePermissions.map(permission=>{
-    const per=permissions.find(element=>element.id===permission.permission)
-       finalPermissions.push(per.name)
-   })
-
-    const isAuthorized=requiredPermissions.every(el=>finalPermissions.includes(el))
+    const isAuthorized=userPermissions.includes(requiredPermissions)
     return isAuthorized}
     catch(error){
       console.log(error)

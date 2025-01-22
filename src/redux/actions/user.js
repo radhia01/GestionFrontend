@@ -42,11 +42,7 @@ export const deleteUser=createAsyncThunk("users/deleteUser",async(id,thunkAPI)=>
 } );
 // update a User 
 
-export const updateUser=createAsyncThunk("users/updateUser",async(data,thunkAPI)=>{
-  
-   const {id,...user}=data;
-   console.log(user)
-   console.log(id)
+export const updateUser=createAsyncThunk("users/updateUser",async({user,id},thunkAPI)=>{
    try{
       const response=await axiosInstance.put(`/api/users/${id}`,user)
      return response.data
@@ -57,14 +53,12 @@ export const updateUser=createAsyncThunk("users/updateUser",async(data,thunkAPI)
 
    }
 } );
-export const getAllRoles=createAsyncThunk("users/roles",async(_,thunkAPI)=>{
+export const getUserPermissions=createAsyncThunk("users/permissions",async(_,thunkAPI)=>{
    try{
-      const response=await axiosInstance.get('/api/roles')
+      const response=await axiosInstance.get('/api/permissions/user')
      return response.data
    }
    catch(error){
       return  thunkAPI.rejectWithValue(error.response.data.code)
-
-
    }
 } );

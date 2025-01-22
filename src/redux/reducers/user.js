@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit"
-import { addUser, deleteUser, getAllRoles, getAllUsers, updateUser } from "../actions/user"
+import { addUser, deleteUser, getAllUsers, getUserPermissions, updateUser } from "../actions/user"
 const userSlice=createSlice({
     name:"user",
     initialState:{
@@ -7,7 +7,8 @@ const userSlice=createSlice({
         isLoading:false,
         error:null,
         response:null,
-        roles:null
+        roles:null,
+        userPermissions:null
       
     },
     reducers:{
@@ -39,8 +40,7 @@ const userSlice=createSlice({
         });
         builder.addCase(deleteUser.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.users=state.users.filter(user=>user.id!==action.payload)
-            state.response="delete"        
+            state.users=state.users.filter(user=>user.id!==action.payload)     
                    });
         builder.addCase(deleteUser.rejected,(state,action)=>{
            state.isLoading=false
@@ -72,14 +72,14 @@ const userSlice=createSlice({
         builder.addCase(updateUser.rejected,(state,action)=>{
             state.isLoading=false
             state.error=action.payload  })
-        builder.addCase(getAllRoles.pending,(state)=>{
-                state.isLoading=true;});
+        builder.addCase(getUserPermissions.pending,(state,action)=>{
+                    state.isLoading=false
+                    state.roles=action.payload});  
                                               
-        builder.addCase(getAllRoles.fulfilled,(state,action)=>{
+        builder.addCase(getUserPermissions.fulfilled,(state,action)=>{
                 state.isLoading=false
-                state.roles=action.payload});  
-        builder.addCase(getAllRoles.rejected,(state,action)=>{
-            state.isLoading=false
+                state.userPermissions=action.payload});  
+        builder.addCase(getUserPermissions.rejected,(state,action)=>{
             state.error=action.payload
                                            })      
        

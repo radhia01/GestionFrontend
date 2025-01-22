@@ -13,11 +13,13 @@ import { getAllRoles} from '../../redux/actions/role'
 import { useNavigate } from 'react-router-dom'
 import usePermissions from '../../hooks/usePermissions'
 import DeleteRole from './DeleteRole'
+import Unauthorized from '../Unauthorized'
 function Roles() {
   const [open,setOpen]=React.useState(false)
   const [openDelete, setopenDelete] = useState(false)
   const { searchItem } = useOutletContext();
   const [selectedRole, setSelectedRole] = useState(null)
+  const isAuth=usePermissions("get_roles")
 const navigate=useNavigate()
   const handleClose=()=>{
     setOpen(false)
@@ -39,7 +41,7 @@ const navigate=useNavigate()
   const {roles}=useSelector(state=>state.role)
   useEffect(() => {
    dispatch(getAllRoles())
-  }, [])
+  }, [dispatch])
   const newRoles=roles && roles.filter(role=>role.name.toUpperCase().includes(searchItem.toUpperCase()));
 
     const columns=[
@@ -84,7 +86,7 @@ const navigate=useNavigate()
     
       }
     ]
-    // if(!isAuth) return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box> 
+    if(!isAuth) return <Unauthorized/> 
   return (
     <div><Box sx={{display:"flex",justifyContent:"space-between"}}>
     <Typography align="start" variant="h5" sx={{my:4,fontSize:22,fontWeight:"bold",color:"#F2C12E"}}>Roles </Typography>

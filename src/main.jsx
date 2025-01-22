@@ -20,6 +20,7 @@ import { persistor, store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import ProductDetails from './containers/product/ProductDetails.jsx';
 import Permissions from './containers/permission/Permissions.jsx';
+import Unauthorized from './containers/Unauthorized.jsx';
 // import SubCategories from './containers/SubCategories.jsx';
 // import Brands from './containers/brand/Brands.jsx';
 // import ExpiredProducts from './containers/product/ExpiredProducts.jsx';
@@ -39,8 +40,9 @@ axiosSetup()
 const router=createBrowserRouter(createRoutesFromElements(
   <>
       <Route path="/signin" element={<SignIn />} />
+      <Route path="/unauthorized" element={<Unauthorized />} />
       <Route element={<PrivateRoutes/>}>
-      <Route path="/" element={<App />}>
+        <Route path="/" element={<App />}>
         <Route path="home" element={<Home />} />
         <Route path="products" element={<Products />} />
         <Route path="product/:id" element={<ProductDetails />} />

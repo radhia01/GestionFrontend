@@ -15,7 +15,7 @@ const authReducer=createSlice({
         }
      },
      extraReducers:(builder)=>{
-builder.addCase(signIn.pending,(state)=>{
+    builder.addCase(signIn.pending,(state)=>{
     state.loading=false 
 });
 builder.addCase(signIn.fulfilled,(state,action)=>{

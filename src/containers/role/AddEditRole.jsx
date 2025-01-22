@@ -7,8 +7,10 @@ import { useSelector } from 'react-redux';
 import { addRole, updateRole } from '../../redux/actions/role';
 import usePermissions from '../../hooks/usePermissions';
 import { toast } from 'react-toastify';
+import Unauthorized from '../Unauthorized'
 function AddEditRole({open,handleClose,selectedRole}) {
-    const isAuth=usePermissions(["add_role","edit_role"])
+    const addRoleAuth=usePermissions("add_role")
+    const editRoleAuth=usePermissions("edit_role")
     const style = {
         position: 'absolute',
         top: '50%',
@@ -44,20 +46,9 @@ function AddEditRole({open,handleClose,selectedRole}) {
             }
        handleClose()
      }
-  //    if(!isAuth) return   <Modal
-  //    open={open}
-  //    onClose={handleClose}
-  //    aria-labelledby="modal-modal-title"
-  //    aria-describedby="modal-modal-description"
-  //  >
-  //    <Box sx={style}>
-  //      <Typography id="modal-modal-title"  variant="h4">
-  //    {t("not_authorized")}
-  //      </Typography>
-  //      <Divider/>
-       
-  //    </Box>
-  //  </Modal>
+  
+     if(!addRoleAuth) return <Unauthorized/> 
+     if(!editRoleAuth) return <Unauthorized/> 
   return (
     <div>  <Modal
     open={open}

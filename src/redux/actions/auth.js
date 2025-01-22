@@ -1,6 +1,6 @@
 import {axiosInstance} from "../../axios/axios"
 import { createAsyncThunk} from "@reduxjs/toolkit"
-export const signIn=createAsyncThunk("auth/signIn",async({userData,navigate},thunkAPI)=>{
+export const signIn=createAsyncThunk("auth/signIn",async({userData,navigate,toast})=>{
 
    try{
       const response=await axiosInstance.post("/api/signIn",userData)
@@ -10,7 +10,7 @@ export const signIn=createAsyncThunk("auth/signIn",async({userData,navigate},thu
      return response.data
    }
    catch(error){
-         return thunkAPI.rejectWithValue(error?.response?.data?.message)
+         toast.error(error.response.data.message)
    }
 } );
 export const signOut=createAsyncThunk("auth/signOut",async(_,thunkAPI)=>{
