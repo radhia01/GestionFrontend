@@ -29,7 +29,7 @@ const userSlice=createSlice({
         });
         builder.addCase(getAllUsers.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.users=action.payload.users
+            state.users=action.payload
         });
         builder.addCase(getAllUsers.rejected,(state,action)=>{
             state.isLoading=false
@@ -40,38 +40,23 @@ const userSlice=createSlice({
         });
         builder.addCase(deleteUser.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.users=state.users.filter(user=>user.id!==action.payload)     
+            state.users=state.users.filter(user=>user.id!==action.payload.id)     
                    });
         builder.addCase(deleteUser.rejected,(state,action)=>{
            state.isLoading=false
            state.error=action.payload
                 })   
-        builder.addCase(addUser.pending,(state)=>{
-            state.isLoading=true
-          
-                           });
         builder.addCase(addUser.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.users=[...state.users,action.payload]
-            state.response="add"
-           
-                           });
-        builder.addCase(addUser.rejected,(state,action)=>{
-            state.isLoading=false
-            state.error=action.payload
-                           })         
+            state.users=[...state.users,action.payload.user]
+                           });     
         builder.addCase(updateUser.pending,(state)=>{
            state.isLoading=true;
-         
                                            });
         builder.addCase(updateUser.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.users=state.users.map(user=>user.id===action.payload.id?action.payload.updatedUser:user)
-            
+            state.users=state.users.map(user=>user.id===action.payload.user.id?action.payload.user:user)
                                            });
-        builder.addCase(updateUser.rejected,(state,action)=>{
-            state.isLoading=false
-            state.error=action.payload  })
         builder.addCase(getUserPermissions.pending,(state,action)=>{
                     state.isLoading=false
                     state.roles=action.payload});  

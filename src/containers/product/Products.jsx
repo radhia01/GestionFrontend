@@ -50,7 +50,6 @@ export default function Products() {
     description: product.description,
     price: product.price,
     quantity: product.quantity,
-   
     category: product?.category?.name || "nothing",
     brand:product?.brand?.name,
   })) || [];

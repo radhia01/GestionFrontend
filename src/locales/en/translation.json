@@ -91,7 +91,9 @@
     "total_by_category":"Total stock by category",
     "products_expiring_soon":"Products expiring soon",
     "created_date":"Created On ",
-    "manageSales":"Sales"
+    "manageSales":"Sales",
+    "firstName":"firstName",
+    "lastName":"firstName"
   
     
     

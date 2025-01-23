@@ -24,7 +24,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function MiniDrawer() {
-  const [searchItem, setsearchItem] = React.useState("")
+  const [searchItem, setSearchItem] = React.useState("")
   const [darkMode, setDarkMode] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [productId, setproductId] = React.useState(null)
@@ -60,7 +60,7 @@ export default function MiniDrawer() {
       <CssBaseline />
          <Box sx={{ display: 'flex' }}>
       
-      <TopBar open={open} handleDrawerOpen={handleDrawerOpen}  darkMode={darkMode} toggleDarkMode={toggleDarkMode} setsearchItem={setsearchItem}/>
+      <TopBar open={open} handleDrawerOpen={handleDrawerOpen}  darkMode={darkMode} toggleDarkMode={toggleDarkMode} setSearchItem={setSearchItem}/>
      <SideBar open={open} handleDrawerClose={handleDrawerClose}/>
       <Box component="main" sx={{ flexGrow: 1, p: 3 ,backgroundColor:"#F2F0F5" ,minHeight:"100vh"}}>
         <DrawerHeader />

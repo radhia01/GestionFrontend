@@ -52,8 +52,9 @@ const router=createBrowserRouter(createRoutesFromElements(
         <Route path="brands" element={<Brands />} />
         <Route path="/role/permissions/:id" element={<RolePermissions />} />
         <Route path="categories" element={<Categories/> }/>
-        {/* <Route path="categories" element={<Categories />} />
         <Route path="users" element={<Users />} />
+        {/* <Route path="categories" element={<Categories />} />
+    
       
       
         <Route path="subcategories" element={<SubCategories />} />

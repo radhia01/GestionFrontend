@@ -19,7 +19,7 @@ export default function ExpiredProducts() {
   const { searchItem } = useOutletContext();
   const { products } = useSelector(state => state.product)
 //  const isAuth=usePermissions(["view_expired_products"])
-  const {images}=useSelector(state=>state.image)
+ 
   const {t}=useTranslation()    
   const {categories}=useSelector(state=>state.category)
 
@@ -27,13 +27,8 @@ export default function ExpiredProducts() {
   useEffect(() => {
    dispatch(getAllProducts())
    dispatch(getAllCategories())
-   dispatch(getAllImages())
   }, [dispatch])
-  
-  const getProductImage=(id)=>{
-   const image=images && images.find(image=>image.id_product===id)
-   return image? image.url:null
-  }
+
   const getProductName=(id)=>{
     const productName=products && products.find(product=>product.id===id)
     
@@ -74,9 +69,7 @@ export default function ExpiredProducts() {
       field: 'name',
       headerName: t("name"),
       width: 300,
-      sortable:true,
-      renderCell:(params)=>{
-        return   <div style={{display:"flex",alignItems:"center"}}><img  width={50} height={50} style={{marginTop:4,marginRight:5}} src={getProductImage(params.id)}/><span >{getProductName(params.id)}</span></div>}
+      sortable:true
     },
     {
       field: 'created_on',

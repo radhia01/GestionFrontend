@@ -68,7 +68,7 @@ const AppBar = styled(MuiAppBar, {
       },
     },
   }));
-function TopBar({open ,handleDrawerOpen,setsearchItem}) {
+function TopBar({open ,handleDrawerOpen,setSearchItem}) {
   
   const {i18n}=useTranslation()
   const handleChange=(e)=>{
@@ -101,7 +101,7 @@ function TopBar({open ,handleDrawerOpen,setsearchItem}) {
             <StyledInputBase
               placeholder="Search by name …"
               inputProps={{ 'aria-label': 'search' }}
-              onChange={(e)=>setsearchItem(e.target.value)}
+              onChange={(e)=>setSearchItem(e.target.value)}
             />
           </Search>
           {/* <Typography variant="h6" noWrap component="div">
