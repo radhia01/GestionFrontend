@@ -57,7 +57,7 @@ console.log(error)
   return (
    <div  className={styles.root} >
      <Box  sx={{width:"50%"}} className={styles.form}>
-     <Box display="flex" sx={{justifyContent:"center",margin:5}}><Typography variant="h2" sx={{color:"#F2C12E" ,fontWeight:"bold"}}>GestionPro</Typography></Box>
+     <Box display="flex" sx={{justifyContent:"center",margin:5}}><Typography variant="h2" sx={{color:"#F2C12E" ,fontWeight:"bold"}}>ManagePro</Typography></Box>
       <Box  textAlign="center"> <Typography  variant="h4">
        Sign In <span className="text-xl">As Administrator</span>
       </Typography>
