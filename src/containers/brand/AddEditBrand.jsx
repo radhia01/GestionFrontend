@@ -6,10 +6,12 @@ import { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-// import usePermissions from '../../hooks/usePermissions';
-
+import usePermissions from "../../hooks/usePermissions";
+import Unauthorized from "../Unauthorized";
+import React from "react";
 function AddEditBrand({open,handleClose,selectedBrandId,setSelectedBrandId}) {
-    //  const isAuth=usePermissions(["add_brand","edit_brand"])
+     const addBrandAuth=usePermissions("add_brand")
+     const editBrandAuth=usePermissions("edit_brand")
     const style = {
         position: 'absolute',
         top: '50%',
@@ -46,20 +48,9 @@ function AddEditBrand({open,handleClose,selectedBrandId,setSelectedBrandId}) {
             }
          setname("")
      }
-  //    if(!isAuth) return   <Modal
-  //    open={open}
-  //    onClose={handleClose}
-  //    aria-labelledby="modal-modal-title"
-  //    aria-describedby="modal-modal-description"
-  //  >
-  //    <Box sx={style}>
-  //      <Typography id="modal-modal-title"  component="h2">
-  //    {t("not_authorized")}
-  //      </Typography>
-  //      <Divider/>
-       
-  //    </Box>
-  //  </Modal>
+   if(!addBrandAuth) return   <Unauthorized/>
+   if(!editBrandAuth) return   <Unauthorized/>
+ 
   return (
     <div> 
       

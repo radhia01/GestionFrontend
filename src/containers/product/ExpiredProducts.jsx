@@ -117,7 +117,7 @@ export default function ExpiredProducts() {
         disableRowSelectionOnClick
         onProcessRowUpdateError={error=>{console.log(error)}}
       />
-      :<Typography>Aucun produit expiré </Typography>}
+      :<Typography>No product is expired  </Typography>}
      
     </Box>
   </div>

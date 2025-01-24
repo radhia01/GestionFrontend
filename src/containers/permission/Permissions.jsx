@@ -11,13 +11,15 @@ import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import { getAllPermissions} from '../../redux/actions/permission'
 import AddEditPermission from './AddEditPermission'
 import DeletePermission from './DeletePermission'
+import Unauthorized from '../Unauthorized'
+import usePermissions from '../../hooks/usePermissions'
 function Permissions() {
   const [open,setOpen]=React.useState(false)
   const {permissions}=useSelector(state=>state.permission)
   const [openDelete, setOpenDelete] = useState(false)
   const { searchItem } = useOutletContext();
   const [selectedPermission, setSelectedPermission] = useState(null)
-  //  const isAuth=usePermissions(["view_permissions"])
+   const isAuth=usePermissions("get_permissions")
   const handleClose=()=>{
     setOpen(false)
   }
@@ -43,7 +45,7 @@ function Permissions() {
 
   useEffect(() => {
    dispatch(getAllPermissions())
-  }, [])
+  }, [dispatch])
   const newPermissions=permissions && permissions.filter(permission=>permission.name.toUpperCase().includes(searchItem.toUpperCase()));
 
     const columns=[
@@ -82,7 +84,7 @@ function Permissions() {
         }
       }
     ]
-    // if(!isAuth) return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box> 
+    if(!isAuth) return <Unauthorized/>
   return (
     <div>
       <Box sx={{display:"flex",justifyContent:"space-between"}}>
@@ -96,13 +98,11 @@ function Permissions() {
        columns={columns}
        rows={newPermissions}
        >
-
-
        </DataGrid>
        {open && <AddEditPermission handleClose={handleClose} selectedPermission={selectedPermission} open={open}/> }
        {openDelete && <DeletePermission handleClose={handleCloseDeleteModel} openDelete={openDelete} selectedPermission={selectedPermission}/> }
        </Box>
-       
+
     </div>
   )
 }

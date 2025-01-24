@@ -1,10 +1,9 @@
 import React from 'react'
-import {Box,Button,Typography,Modal,Divider,TextField,IconButton} from "@mui/material"
+import {Box,Button,Typography,IconButton} from "@mui/material"
 import { useTranslation } from 'react-i18next'
 import  {useSelector,useDispatch} from 'react-redux'
-import { deleteCategory, getAllCategories, updateCategory } from '../../redux/actions/category'
+import {  getAllCategories } from '../../redux/actions/category'
 import { useEffect,useState } from 'react'
-import { toast } from 'react-toastify'
 import usePermissions from "../../hooks/usePermissions"
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
@@ -14,20 +13,19 @@ import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
  import AddEditCategory from './AddEditCategory'
 import { getAllUsers } from '../../redux/actions/user'
 import DeleteCategory from './DeleteCategory'
+import Unauthorized from '../Unauthorized'
 
 function Categories() {
   const [open,setOpen]=React.useState(false)
   const [openDelete, setopenDelete] = useState(false)
   const { searchItem } = useOutletContext();
   const [selectedCategoryId, setselectedCategoryId] = useState(null)
-  // const isAuth=usePermissions(["view_categories"])
-const {users}=useSelector(state=>state.user)
+  const isAuth=usePermissions("get_categories")
   const handleClose=()=>{
     setOpen(false)
   }
   const handleCloseDeleteModel=()=>{
     setopenDelete(false)
-    
   }
   const handleOpenEditModel=(id)=>{
     setOpen(true)
@@ -44,11 +42,10 @@ const {users}=useSelector(state=>state.user)
   const {t}=useTranslation()
   const dispatch=useDispatch()
   const {categories}=useSelector(state=>state.category)
-  console.log(users)
   useEffect(() => {
    dispatch(getAllCategories())
    dispatch(getAllUsers())
-  }, [])
+  }, [dispatch])
   const getDate=(date)=>{
     const categoryDate=date.slice(0,10)
     return categoryDate? categoryDate :null
@@ -90,18 +87,13 @@ const {users}=useSelector(state=>state.user)
             }}}>
             < BorderColorRoundedIcon/>
           </IconButton>
-          
-          
-  
             </Box>
-            
           )
         }
-    
       }
     ]
-    // if(!isAuth)
-    //   return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box>
+     if(!isAuth)
+     return <Unauthorized/>
   return (
     <div>
        <Box sx={{display:"flex",justifyContent:"space-between"}}>
@@ -115,13 +107,10 @@ const {users}=useSelector(state=>state.user)
        columns={columns}
        rows={newCategories}
        >
-
-
        </DataGrid>
        {open && <AddEditCategory handleClose={handleClose} selectedCategoryId={selectedCategoryId} open={open}/> }
        {openDelete && <DeleteCategory handleClose={handleCloseDeleteModel} openDelete={openDelete} selectedCategoryId={selectedCategoryId}/> }
        </Box>
-       
     </div>
   )
 }

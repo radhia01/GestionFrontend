@@ -35,10 +35,6 @@ function Product() {
    }
   }, [productId])
   const {t}=useTranslation()
-  // const ProductImages=useMemo(()=>{
-  //   return productId?images.filter(image=>image.id_product===productId):null
-  //      },[productId,images])
-    
   const handleChange = (e) => {
         setProduct({
           ...product,

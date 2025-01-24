@@ -1,14 +1,15 @@
 // @ts-nocheck
 import {Modal,Box,Typography,Divider,Button} from '@mui/material';
 import {useTranslation} from "react-i18next"
-// import usePermissions from '../../hooks/usePermissions';
+import usePermissions from '../../hooks/usePermissions';
 import {useDispatch} from "react-redux"
 import { deleteProduct } from '../../redux/actions/products';
+import Unauthorized from '../Unauthorized';
  // eslint-disable-next-line react/prop-types
  const DeleteModal=({open,handleClose,selectedProductId})=>{
     const dispatch=useDispatch()
      const {t}=useTranslation()
-      // const isAuth=usePermissions(["delete_product"])
+      const isAuth=usePermissions("delete_product")
     const style = {
       position: 'absolute',
       top: '50%',
@@ -25,19 +26,8 @@ import { deleteProduct } from '../../redux/actions/products';
         dispatch(deleteProduct(selectedProductId))
         
       }
-      // if(!isAuth)
-      //   return   <Modal
-      //   open={open}
-      //   onClose={handleClose}
-      //   aria-labelledby="modal-modal-title"
-      //   aria-describedby="modal-modal-description"
-      // >
-      //   <Box sx={style}>
-          
-        
-      //     <Box display="flex" justifyContent="center" sx={{padding:20}}> <Typography variant="h4">{t("not_authorized")}</Typography></Box>
-      //   </Box>
-      // </Modal>
+       if(!isAuth) return <Unauthorized/>
+       
       
     return (
       <div>

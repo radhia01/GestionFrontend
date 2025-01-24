@@ -3,10 +3,11 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-
+import usePermissions from '../../hooks/usePermissions'
 import { deletePermission} from '../../redux/actions/permission'
+import Unauthorized from '../Unauthorized'
 export const DeletePermission=({handleClose,selectedPermission,openDelete})=>{
-   
+    const isAuth=usePermissions("delete_permission")
     const dispatch=useDispatch()
     const {t}=useTranslation()
     const style = {
@@ -27,28 +28,8 @@ export const DeletePermission=({handleClose,selectedPermission,openDelete})=>{
           handleClose();
   
         }
-         
-       
-        
-        
-      
-  
-      // if(!isAuth) return (
-      //       <Modal
-      //     open={openDelete}
-      //     onClose={handleClose}
-      //     aria-labelledby="modal-modal-title"
-      //     aria-describedby="modal-modal-description"
-      //   >
-      //     <Box sx={style}>
-      //       <Typography id="modal-modal-title"  variant="h4">
-      //     {t("not_authorized")}
-      //       </Typography>
-      //       <Divider/>
-            
-      //     </Box>
-      //   </Modal>
-      //     ) 
+      if(!isAuth) return <Unauthorized/>
+ 
     return (
       <div>
     <Modal

@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { addPermission, updatePermission } from '../../redux/actions/permission';
 import {toast} from "react-toastify"
-import { resetError } from '../../redux/reducers/permission';
 import usePermissions from '../../hooks/usePermissions';
+import Unauthorized from '../Unauthorized';
 function AddEditPermission({open,handleClose,selectedPermission}) {
-     const {error}=useSelector(state=>state.permission)
-    const isAuth=usePermissions(["add_permission","edit_permission"])
+    const addPermissionAuth=usePermissions("add_permission")
+    const editPermissionAuth=usePermissions("edit_permission")
      
     const style = {
         position: 'absolute',
@@ -47,27 +47,9 @@ function AddEditPermission({open,handleClose,selectedPermission}) {
             }
        handleClose()
      }
-     useEffect(() => {
-     error && toast.error(error)
-     }, [error])
-      useEffect(() => {
-       dispatch(resetError())
-      }, [dispatch])
 
-    //   if(!isAuth) return   <Modal
-    //   open={open}
-    //   onClose={handleClose}
-    //   aria-labelledby="modal-modal-title"
-    //   aria-describedby="modal-modal-description"
-    // >
-    //   <Box sx={style}>
-    //     <Typography id="modal-modal-title"  variant="h4">
-    //   {t("not_authorized")}
-    //     </Typography>
-    //     <Divider/>
-        
-    //   </Box>
-    // </Modal>
+  if(!addPermissionAuth) return <Unauthorized/>
+  if(!editPermissionAuth) return <Unauthorized/>
   return (
     <div><Modal
       open={open}
@@ -89,11 +71,8 @@ function AddEditPermission({open,handleClose,selectedPermission}) {
          required
          onChange={handleChange}
          ></TextField>
-  
           </Box>
          <Divider/>
-         
-          
           <Box sx={{ display: "flex", justifyContent: "end", mt: 2 }}>
                 <Button   sx={{margin:1,color:"white",backgroundColor:"green"}}variant="outlined" type="submit" onClick={()=>handleSubmit(name)}>{selectedPermission ?t("update"):t("add")}</Button>
                 <Button   variant="outlined" type="submit"  sx={{backgroundColor:"#B4BEC9",color:"white",margin:1,borderColor:"#B4BEC9"}} onClick={handleClose}>{t("cancel")}</Button>

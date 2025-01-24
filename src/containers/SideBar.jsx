@@ -96,32 +96,31 @@ function SideBar({open,handleDrawerClose}) {
       path:"/roles"
     },
     {
+      text:"Permissions",
+      icon:<GroupIcon/>,
+      path:"/permissions"
+    },
+    {
       text:t("manageUsers"),
       icon:<GroupIcon/>,
       path:"/users"
     },
     {
-      text:"Permissions",
-      icon:<GroupIcon/>,
-      path:"/permissions"
+      text:t("manageCat"),
+      icon:<CategoryIcon/>,
+      path:"/categories"
     },
+    {
+      text:t("manageBrands"),
+      icon:<CategoryIcon/>,
+      path:"/brands"
+    },
+    
   {
     text:t("manageProducts"),
     icon:<ChecklistIcon/>,
     path:"/products"
   },
-  {
-    text:t("manageCat"),
-    icon:<CategoryIcon/>,
-    path:"/categories"
-  },
-  
-  {
-    text:t("manageBrands"),
-    icon:<CategoryIcon/>,
-    path:"/brands"
-  },
-  
   {
     text:t("managePurchases"),
     icon:<BallotTwoToneIcon/>,

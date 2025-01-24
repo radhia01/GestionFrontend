@@ -7,9 +7,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import usePermissions from '../../hooks/usePermissions';
 import { toast } from 'react-toastify';
-
+import Unauthorized from '../Unauthorized';
 function AddEditCategory({open,handleClose,selectedCategoryId}) {
-
     const style = {
         position: 'absolute',
         top: '50%',
@@ -21,7 +20,8 @@ function AddEditCategory({open,handleClose,selectedCategoryId}) {
         boxShadow: 24,
         p: 4,
       };
-      const isAuth=usePermissions(["add_category","delete_category"])
+      const addCategoryAuth=usePermissions("add_category")
+      const editCategoryAuth=usePermissions("edit_category")
       const {t}=useTranslation()
       const dispatch=useDispatch()
       const [name, setname] = useState("")
@@ -46,22 +46,10 @@ function AddEditCategory({open,handleClose,selectedCategoryId}) {
                 dispatch(addCategory({name,toast}))
             }
             setname("")
-       
      }
-  //    if(!isAuth) return  <Modal
-  //    open={open}
-  //    onClose={handleClose}
-  //    aria-labelledby="modal-modal-title"
-  //    aria-describedby="modal-modal-description"
-  //  >
-  //    <Box sx={style}>
-  //      <Typography id="modal-modal-title"  component="h4">
-  //    {t("not_authorized")}
-  //      </Typography>
-  //      <Divider/>
-       
-  //    </Box>
-  //  </Modal>
+     if(!addCategoryAuth) return   <Unauthorized/>
+     if(!editCategoryAuth) return   <Unauthorized/>
+     
   return (
     <div><Modal
       open={open}
@@ -83,11 +71,8 @@ function AddEditCategory({open,handleClose,selectedCategoryId}) {
          required
          onChange={handleChange}
          ></TextField>
-  
           </Box>
          <Divider/>
-         
-          
           <Box sx={{ display: "flex", justifyContent: "end", mt: 2 }}>
                 <Button   sx={{margin:1,color:"white",backgroundColor:"green"}}variant="outlined" type="submit" onClick={()=>handleSubmit(name)}>{selectedCategoryId ?t("update"):t("add")}</Button>
                 <Button   variant="outlined" type="submit"  sx={{backgroundColor:"#B4BEC9",color:"white",margin:1,borderColor:"#B4BEC9"}} onClick={handleClose}>{t("cancel")}</Button>

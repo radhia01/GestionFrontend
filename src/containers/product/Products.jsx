@@ -14,12 +14,14 @@ import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import { toast } from 'react-toastify';
 import { resetError, resetResponse } from '../../redux/reducers/product';
 import DeleteProduct from "./DeleteProduct";
+import usePermissions from '../../hooks/usePermissions';
+import Unauthorized from '../Unauthorized';
 
 export default function Products() {
   const { productId,setproductId } = useOutletContext();
   const [selectedProductId, setSelectedProductId] = React.useState(null);
   const { error,response } = useSelector(state => state.product)
-//  const isAuth=usePermissions(["view_products"])
+ const isAuth=usePermissions("get_products")
   const {t}=useTranslation()
   const navigate=useNavigate()
   const handleOpen=(id)=>{
@@ -82,16 +84,7 @@ export default function Products() {
    dispatch(resetResponse())
   }, [dispatch])
   
-  useEffect(() => {
-    if(error){
-     toast.error(error)
-    }
-   }, [error])
-  //  useEffect(() => {
-  //    if(response && response==="delete"){
-  //        toast.success(t("success_delete_product"))
-  //    }
-  //   }, [response])
+
   const columns = [
     {
       field: 'name',
@@ -185,6 +178,7 @@ export default function Products() {
   
     }
   ];
+  if(!isAuth) return <Unauthorized/>
   return (
     <div>
     <Box sx={{display:"flex",justifyContent:"space-between"}}>

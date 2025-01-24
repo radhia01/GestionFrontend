@@ -11,6 +11,8 @@ import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import AddEditBrand from './AddEditBrand'
 import { getAllBrands } from '../../redux/actions/brand'
 import DeleteBrand from './DeleteBrand'
+import usePermissions from '../../hooks/usePermissions'
+import Unauthorized from '../Unauthorized'
 
 function Brands() {
   const {t}=useTranslation()
@@ -19,15 +21,13 @@ function Brands() {
   const { searchItem } = useOutletContext();
   const {brands}=useSelector(state=>state.brand)
   const [openDelete, setOpenDelete] = useState(false)
-  console.log(openDelete)
   const [selectedBrandId, setSelectedBrandId] = useState(null)
-  // const isAuthorized=usePermissions(["view_brands"])
+  const isAuthorized=usePermissions("get_brands")
   const handleClose=()=>{
     setOpen(false)
   }
   const handleCloseDeleteModel=()=>{
     setOpenDelete(false)
-    
   }
   const handleOpenEditModel=(id)=>{
     setOpen(true)
@@ -40,10 +40,7 @@ function Brands() {
    const handleOpenDeleteModal=(id)=>{
     setSelectedBrandId(id)
     setOpenDelete(true)
-    
    }
-  
-
   useEffect(() => {
    dispatch(getAllBrands())
   }, [dispatch])
@@ -93,12 +90,12 @@ function Brands() {
       }
     ]
     const getDate=(date)=>{
-      const categoryDate=date.slice(0,10)
-      return categoryDate? categoryDate :null
+      const brandDate=date.slice(0,10)
+      return brandDate? brandDate :null
     }
       const newBrands=brands && brands.filter(brand=>brand?.name?.toUpperCase().includes(searchItem.toUpperCase()))
-      // if(!isAuthorized)
-      //   return <Box justifyContent="center"><Typography variant="h4">{t("not_authorized")}</Typography></Box>
+       if(!isAuthorized)
+        return <Unauthorized/>
   return (
     <div>
     <Box sx={{display:"flex",justifyContent:"space-between"}}>

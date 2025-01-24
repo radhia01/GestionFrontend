@@ -7,12 +7,12 @@ import {
  } from '@mui/material';
  import {makeStyles } from "@mui/styles"
  import {toast} from "react-toastify"
- import {React, useState,useEffect } from 'react';
+ import {useState } from 'react';
  import {signIn} from "../../redux/actions/auth"
  import {useNavigate} from "react-router-dom"
  import {useDispatch,useSelector} from "react-redux"
- import {getRolePermissions} from "../../redux/actions/role"
  import image from "../../assets/computer.jpg"
+import React from 'react';
  const useStyles=makeStyles({
   form:{
     backgroundColor:"black",
@@ -52,9 +52,7 @@ console.log(error)
     e.preventDefault()
     dispatch(signIn({userData,navigate,toast}))
   }
-  // useEffect(() => {
-  //   user && dispatch(getRolePermissions(user.id_role))
-  // }, [user])
+
      
   return (
    <div  className={styles.root} >

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import  {React, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { addPermissionToRole } from '../../redux/actions/role'
 import { Box, Button, Dialog, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { getAllPermissions } from '../../redux/actions/permission'
 import { toast } from 'react-toastify'
+import Unauthorized from '../Unauthorized'
+import usePermissions from '../../hooks/usePermissions'
 const AddPermissionToRole=({id,handleClose,getRoleName,rolePermissions})=>{
-  console.log(rolePermissions)
     const dispatch=useDispatch()
     const {t}=useTranslation()
      const [idper, setidper] = useState("")
      const {permissions}=useSelector(state=>state.permission)
-     console.log(permissions)
-    //  const isAuth=usePermissions(["add_permission_to_role"])
+     const isAuth=usePermissions("add_permission_to_role")
      const handleChange=(e)=>{
      setidper(e.target.value)
      }
@@ -24,19 +24,8 @@ const AddPermissionToRole=({id,handleClose,getRoleName,rolePermissions})=>{
       dispatch(addPermissionToRole({id_role:id,id_permission:idper,toast}))
       handleClose()
      }
-  //    if(!isAuth) return    
-  //     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="sm">
-     
-     
-  // <DialogContent>
-  //   <Typography variant="h4">{t("not_authorized")}</Typography>
-  //    </DialogContent>
-  
-  // </Dialog>
-   
+     if(!isAuth) return  <Unauthorized/>
     return (
-      
-      
      <Dialog onClose={handleClose} open={open} fullWidth maxWidth="sm">
         <DialogTitle>Add new Permission to {getRoleName(id) } role </DialogTitle>
         <DialogContent>

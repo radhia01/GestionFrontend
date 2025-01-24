@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import {Box,Button,Typography,Modal,Divider} from "@mui/material"
 import { deleteCategory } from '../../redux/actions/category'
+import { Unarchive } from '@mui/icons-material'
+import Unauthorized from '../Unauthorized'
+import React from 'react'
 export const DeleteModal=({handleClose,selectedCategoryId,openDelete})=>{
     const dispatch=useDispatch()
     const {t}=useTranslation()
-      // const isAuth=usePermissions(["delete_category"])
+    const isAuth=usePermissions("delete_category")
     const style = {
       position: 'absolute',
       top: '50%',
@@ -30,23 +33,7 @@ export const DeleteModal=({handleClose,selectedCategoryId,openDelete})=>{
          
         
        
-      //   if(!isAuth)   return (
-      //     <Modal
-      //   open={openDelete}
-      //   onClose={handleClose}
-      //   aria-labelledby="modal-modal-title"
-      //   aria-describedby="modal-modal-description"
-      // >
-      //   <Box sx={style}>
-      //     <Typography id="modal-modal-title"  variant="h4">
-      //   {t("not_authorized")}
-      //     </Typography>
-      //     <Divider/>
-          
-      //   </Box>
-      // </Modal>
-      //   )
-      //   if(isLoading) return <Typography>Loading wait </Typography>
+if(!isAuth) return <Unauthorized/>
         
     return (
       <div>  <Modal
