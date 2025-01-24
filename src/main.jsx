@@ -36,7 +36,7 @@ import Roles from './containers/role/Roles.jsx';
 import RolePermissions from './containers/permission/RolePermissions.jsx';
 import Brands from './containers/brand/Brands.jsx';
 import React from 'react';
-axiosSetup()
+// axiosSetup()
 const router=createBrowserRouter(createRoutesFromElements(
   <>
       <Route path="/signin" element={<SignIn />} />

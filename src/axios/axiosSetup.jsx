@@ -11,6 +11,7 @@ const axiosSetup=()=>{
       const originalRequest = error.config;
       
       if (error.response.status === 401 && !originalRequest._retry) {
+        console.log(error.response)
         originalRequest._retry = true;
         
           await store.dispatch(signOut());

@@ -84,7 +84,8 @@ function SideBar({open,handleDrawerClose}) {
   const {language}=useSelector(state=>state.auth)
   const navigate=useNavigate()
     const theme = useTheme();
-    const Array1=[{
+    const Array1=[
+      {
       text:t("dashboard"),
       icon:<HomeIcon/>,
       path:"/home"
