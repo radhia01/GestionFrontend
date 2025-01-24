@@ -174,7 +174,7 @@ useEffect(() => {
       </IconButton>
     
     </DrawerHeader>
-    <Box display="flex" sx={{justifyContent:"center" }}><Typography variant="h5" sx={{color:"#F2C12E" ,fontWeight:"bold"}}>GestionPro</Typography></Box>
+    <Box display="flex" sx={{justifyContent:"center" }}><Typography variant="h5" sx={{color:"#F2C12E" ,fontWeight:"bold"}}>ManagePro</Typography></Box>
     <Divider/>
     
     <Divider />
